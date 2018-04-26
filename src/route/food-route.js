@@ -3,6 +3,7 @@
 const logger = require('../lib/logger');
 const Food = require('../model/food');
 const storage = require('../lib/storage');
+const response = require('../lib/response');
 
 module.exports = function routeFood(router) {
   router.post('/api/v1/food', (req, res) => {
@@ -12,16 +13,12 @@ module.exports = function routeFood(router) {
       const newFood = new Food(req.body.title, req.body.content);
       storage.create('Food', newFood)
         .then((food) => {
-          res.writeHead(201, { 'Content-Type': 'application/json' });
-          res.write(JSON.stringify(food));
-          res.end();
+          response.sendJSON(res, 201, food);
           return undefined;
         }); 
     } catch (err) {
       logger.log(logger.ERROR, `FOOD-ROUTE: There was a bad request ${err}`);
-      res.writeHead(400, { 'Content-Type': 'text/plain' });
-      res.write('Bad request');
-      res.end();
+      response.sendError(res, 400, err.message);
       return undefined;
     }
     return undefined;
