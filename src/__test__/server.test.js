@@ -32,15 +32,15 @@ describe('VALID request to the API', () => {
     //     //     });
     //     // });
     //   });
-    //   describe('GET /api/v1/food?id=id', () => {
-    //     test('should retrieve previous POST', () => {
-    //       return superagent.get(`:${testPort}/api/v1/food?id=${mockId}`)
-    //         .then((res) => {
-    //           expect(res.body.title).toEqual(mockResource.title);
-    //           expect(res.body.content).toEqual(mockResource.content);
-    //           expect(res.status).toEqual(200);
-    //         });
-    //     });
+    describe('GET /api/v1/food?id=id', () => {
+      test('should retrieve previous POST', () => {
+        return superagent.get(`:${testPort}/api/v1/food?id=${mockId}`)
+          .then((res) => {
+            expect(res.body.title).toEqual(mockResource.title);
+            expect(res.body.content).toEqual(mockResource.content);
+            expect(res.status).toEqual(200);
+          });
+      });
     //   //   test('No id should result in 404', () => {
     //   //     return superagent.get(`:${testPort}/api/v1/food?id=123`)
     //   //       .then((res) => {
@@ -55,6 +55,6 @@ describe('VALID request to the API', () => {
     //   //         expect(res.body).toEqual([mockId]);
     //   //         expect(res.status).toEqual(200);
     //   // //       });
-    //   //   });
+    });
   });
 });
