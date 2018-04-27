@@ -27,7 +27,7 @@ module.exports = function routeFood(router) {
   router.get('/api/v1/food', (req, res) => {
     logger.log(logger.INFO, 'FOOD-ROUTE: GET /api/v1/food');
     if (!req.url.query.id) {
-      response.sendError(res, 404, 'Your request requires an id');
+      response.sendError(res, 400, 'Your request requires an id');
       return undefined;
     }
 
