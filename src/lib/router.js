@@ -3,6 +3,7 @@
 const logger = require('./logger');
 const bodyParser = require('./body-parser');
 const urlParser = require('./url-parser');
+const response = require('../lib/response');
 
 const Router = module.exports = function router() {
   this.routes = {
@@ -40,21 +41,15 @@ Router.prototype.route = function route() {
           this.routes[req.method][req.url.pathname](req, res);
           return;
         }
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.write('Route not found from here');
-        res.end();
+        response.sendError(res, 404, 'Route not found from here');
       })
       .catch((err) => {
         if (err instanceof SyntaxError) {
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
-          res.write('Route not found');
-          res.end();
+          response.sendError(res, 404, 'Route not found');
           return undefined;
         }
         logger.log(logger.ERROR, JSON.stringify(err));
-        res.writeHead(400, { 'Content-Type': 'text/plain' });
-        res.write('Bad request');
-        res.end();
+        response.sendError(res, 404, 'Route not found');
         return undefined;
       });
   };
